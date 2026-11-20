@@ -4,6 +4,9 @@
 .LSOverride
 ._*
 
+# Documentation / Notes
+docs/
+
 # Temporary presentation lock & unpack files
 ~$*
 *.tmp

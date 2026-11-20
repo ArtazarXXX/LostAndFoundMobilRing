@@ -1,0 +1,1389 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Ревью бэкенда — ИТ-Куб</title>
+<style>
+
+@page {
+    size: A4;
+    margin: 22mm 18mm 22mm 18mm;
+    @bottom-center {
+        content: counter(page) " / " counter(pages);
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 9pt;
+        color: #888;
+    }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PT Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.55;
+    color: #1f2328;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700;
+    line-height: 1.25;
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
+    color: #0b1e3f;
+    page-break-after: avoid;
+}
+
+h1 {
+    font-size: 26pt;
+    border-bottom: 3px solid #2563eb;
+    padding-bottom: 0.3em;
+    margin-top: 0;
+    color: #0b1e3f;
+}
+
+h2 {
+    font-size: 18pt;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.25em;
+    color: #1e3a8a;
+    margin-top: 2em;
+}
+
+h3 {
+    font-size: 14pt;
+    color: #1d4ed8;
+}
+
+h4 {
+    font-size: 12pt;
+    color: #1f2937;
+}
+
+p { margin: 0.6em 0; }
+
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+strong { color: #0b1e3f; font-weight: 700; }
+
+ul, ol {
+    margin: 0.5em 0 0.8em 0;
+    padding-left: 1.6em;
+}
+
+li { margin: 0.25em 0; }
+
+li > ul, li > ol { margin: 0.25em 0; }
+
+/* inline code */
+code {
+    font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.9em;
+    background: #eef2ff;
+    color: #1e3a8a;
+    padding: 0.12em 0.38em;
+    border-radius: 4px;
+    border: 1px solid #e0e7ff;
+}
+
+/* code blocks */
+pre {
+    font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #2563eb;
+    border-radius: 6px;
+    padding: 12px 14px;
+    overflow-x: auto;
+    margin: 0.8em 0;
+    page-break-inside: avoid;
+}
+
+pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+}
+
+.codehilite {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #2563eb;
+    border-radius: 6px;
+    margin: 0.8em 0;
+    page-break-inside: avoid;
+    overflow: hidden;
+}
+.codehilite pre {
+    border: none;
+    background: transparent;
+    margin: 0;
+    border-left: none;
+    border-radius: 0;
+}
+
+/* tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    font-size: 10pt;
+    page-break-inside: avoid;
+}
+
+th, td {
+    border: 1px solid #d1d5db;
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background: #1e3a8a;
+    color: white;
+    font-weight: 600;
+}
+
+tr:nth-child(even) td { background: #f8fafc; }
+
+/* blockquote */
+blockquote {
+    border-left: 4px solid #f59e0b;
+    background: #fffbeb;
+    padding: 10px 14px;
+    margin: 1em 0;
+    color: #78350f;
+    border-radius: 4px;
+}
+
+blockquote p:first-child { margin-top: 0; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* horizontal rule */
+hr {
+    border: none;
+    border-top: 2px dashed #cbd5e1;
+    margin: 2em 0;
+}
+
+/* checklist */
+ul.task-list { list-style: none; padding-left: 0.5em; }
+li input[type="checkbox"] { margin-right: 0.5em; }
+
+/* keep section headings on the same page as their first paragraph */
+h2 + p, h3 + p, h2 + ul, h3 + ul, h2 + ol, h3 + ol { page-break-before: avoid; }
+
+/* cover */
+.cover {
+    text-align: center;
+    padding: 80px 20px 60px;
+    page-break-after: always;
+}
+.cover .title {
+    font-size: 32pt;
+    font-weight: 800;
+    color: #0b1e3f;
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+.cover .subtitle {
+    font-size: 14pt;
+    color: #475569;
+    margin-bottom: 40px;
+}
+.cover .meta {
+    display: inline-block;
+    text-align: left;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #2563eb;
+    padding: 18px 26px;
+    border-radius: 6px;
+    font-size: 11pt;
+    color: #1f2937;
+    line-height: 1.8;
+}
+.cover .meta strong { color: #0b1e3f; }
+.cover .accent {
+    width: 60px;
+    height: 4px;
+    background: #2563eb;
+    margin: 24px auto 32px;
+    border-radius: 2px;
+}
+
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+
+<div class="cover">
+    <div class="title">Ревью бэкенда<br>сервиса потерянных вещей</div>
+    <div class="accent"></div>
+    <div class="subtitle">Подробный разбор с примерами и инструкциями</div>
+    <div class="meta">
+        <strong>Проект:</strong> ИТ-Куб, итоговая работа<br>
+        <strong>Файлы:</strong> <code>main.py</code>, <code>db.py</code><br>
+        <strong>Технологии:</strong> Python 3, FastAPI, SQLite<br>
+        <strong>Уровень:</strong> школьный итоговый проект
+    </div>
+</div>
+
+<h1 id="_1">Ревью бэкенда сервиса потерянных вещей</h1>
+<p><strong>Проект:</strong> ИТ-Куб, итоговая работа
+<strong>Файлы:</strong> <code>main.py</code>, <code>db.py</code>
+<strong>Технологии:</strong> Python 3, FastAPI, SQLite</p>
+<hr />
+<h2 id="_2">Как читать этот документ</h2>
+<p>Каждая проблема описана по схеме:</p>
+<ul>
+<li><strong>Что не так</strong> — суть проблемы простыми словами.</li>
+<li><strong>Почему это важно</strong> — что сломается или что спросит комиссия.</li>
+<li><strong>Что делать</strong> — пошаговая инструкция.</li>
+<li><strong>Было / Стало</strong> — код «как сейчас» и «как должно быть».</li>
+<li><strong>На защите</strong> (если применимо) — готовая формулировка для комиссии.</li>
+</ul>
+<p>В конце — <strong>итоговый чек-лист</strong> и <strong>общий пример «как мог бы выглядеть весь <code>main.py</code>»</strong>.</p>
+<hr />
+<h2 id="1">Раздел 1. Критические проблемы (нужно исправить обязательно)</h2>
+<h3 id="11-sql-">1.1. SQL-инъекции во всех запросах</h3>
+<p><strong>Что не так.</strong> Все SQL-запросы собираются через f-строки. Это значит, что данные пользователя (например, <code>url</code>) подставляются в текст запроса напрямую.</p>
+<p><strong>Почему это важно.</strong> Это самая известная веб-уязвимость в мире. Её обязательно проходят на любом курсе по веб-разработке, и <strong>комиссия почти наверняка спросит</strong>: «Защищён ли ваш сервис от SQL-инъекций?». Если ответить «нет» или «не знаю» — это серьёзный минус.</p>
+<p>Пример атаки. Если злоумышленник передаст:</p>
+<div class="codehilite"><pre><span></span><code>url = x&#39;; DROP TABLE items; --
+</code></pre></div>
+
+<p>то твой код превратится в:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="n">place</span><span class="p">,</span><span class="w"> </span><span class="k">comment</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;x&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">items</span><span class="p">;</span><span class="w"> </span><span class="c1">--&#39;</span>
+</code></pre></div>
+
+<p>И вся таблица <code>items</code> будет удалена.</p>
+<p><strong>Что делать.</strong> Использовать <strong>параметризованные запросы</strong>. Это значит, что вместо подстановки данных в строку, ты пишешь в SQL знаки <code>?</code>, а сами значения передаёшь отдельным аргументом. SQLite сам их безопасно подставит.</p>
+<p><strong>Было:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;UPDATE items SET status = &#39;</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&#39; WHERE url = &#39;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;INSERT INTO items (url, place, comment, status) &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;VALUES(&#39;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">place</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">comment</span><span class="si">}</span><span class="s2">&#39;, &#39;in applic&#39;)&quot;</span>
+<span class="p">)</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT url, place, comment, status FROM items WHERE url = &#39;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="s2">&quot;UPDATE items SET status = ? WHERE url = ?&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">url</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="s2">&quot;INSERT INTO items (url, place, comment, status) VALUES (?, ?, ?, ?)&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">place</span><span class="p">,</span> <span class="n">comment</span><span class="p">,</span> <span class="s2">&quot;in applic&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT url, place, comment, status FROM items WHERE url = ?&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">url</span><span class="p">,),</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>Обрати внимание: если параметр <strong>один</strong>, кортеж всё равно нужен — <code>(url,)</code> с запятой. Без запятой это будет просто строка в скобках.</p>
+<p><strong>На защите:</strong> «Я использую параметризованные запросы — данные передаются в SQL через знак вопроса, а не подставляются в строку. Это защищает от SQL-инъекций.»</p>
+<hr />
+<h3 id="12-return-finally">1.2. <code>return</code> внутри блока <code>finally</code></h3>
+<p><strong>Что не так.</strong> В каждом эндпоинте есть конструкция:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">res</span>
+</code></pre></div>
+
+<p><code>return</code> стоит <strong>внутри <code>finally</code></strong>, и из-за этого, если <code>cursor.execute(...)</code> упал с ошибкой, эта ошибка не вылетит наружу — её «съест» <code>return</code>. Клиент получит код 200 (успех) и пустой ответ, как будто всё хорошо.</p>
+<p><strong>Почему это важно.</strong> Если БД временно недоступна или запрос неправильный — пользователь увидит «успех» и не поймёт, что произошло. Отлаживать такие баги очень сложно.</p>
+<p><strong>Что делать.</strong> Вынести <code>return</code> за пределы <code>try/finally</code>. Логика должна быть:
+1. Выполнить запрос.
+2. Если упал — пробросить ошибку дальше.
+3. Если всё хорошо — вернуть результат.</p>
+<p><strong>Было:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/admin/items/getall&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">allitems</span><span class="p">():</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT url, place, comment, status FROM items&quot;</span><span class="p">)</span>
+        <span class="n">SQLobject</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">SQLobject</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;place&quot;</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]]</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">res</span>
+</code></pre></div>
+
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/admin/items/getall&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">allitems</span><span class="p">():</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;SELECT url, place, comment, status FROM items&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">],</span> <span class="s2">&quot;place&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;place&quot;</span><span class="p">],</span>
+         <span class="s2">&quot;comment&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">],</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]}</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span>
+    <span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h3 id="13-commit-select">1.3. <code>commit()</code> после <code>SELECT</code></h3>
+<p><strong>Что не так.</strong> После каждого <code>SELECT</code> вызывается <code>con.commit()</code>. <code>commit</code> нужен только тогда, когда в БД что-то <strong>меняется</strong> (<code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>). После чтения данных коммитить нечего.</p>
+<p><strong>Почему это важно.</strong> Это не баг, но это явный признак того, что ученик не до конца понимает, что делает <code>commit</code>. На защите такой вопрос могут задать: «Зачем здесь commit?». Лучше убрать.</p>
+<p><strong>Что делать.</strong> Оставить <code>commit()</code> только в <code>create_items</code> и <code>restatus</code>. В <code>getall</code>, <code>getapplic</code>, <code>get_item</code>, <code>getaccept</code> — убрать.</p>
+<hr />
+<h3 id="14">1.4. Админские эндпоинты доступны кому угодно</h3>
+<p><strong>Что не так.</strong> Эндпоинты <code>/admin/items/getall</code>, <code>/admin/items/getapplic</code>, <code>/admin/items/restatus</code> не требуют никакой авторизации. Любой человек, знающий адрес сервиса, может посмотреть все заявки и поменять их статусы.</p>
+<p>В <code>db.py</code> создаётся таблица <code>admins</code> с логином и паролем — но она нигде не используется.</p>
+<p><strong>Почему это важно.</strong> Эндпоинт называется <code>/admin/...</code> — это явное обещание, что туда могут заходить только администраторы. Если защиты нет — комиссия об этом точно спросит.</p>
+<p><strong>Что делать.</strong> Самый простой вариант, которого хватит для школьного проекта:</p>
+<ol>
+<li>Сделать эндпоинт <code>POST /admin/login</code>, который принимает логин и пароль, проверяет их в таблице <code>admins</code> и возвращает «токен» (это может быть просто случайная строка, например <code>secrets.token_hex(16)</code>).</li>
+<li>Сохранить токен в памяти (в обычном <code>dict</code>) или в отдельной таблице <code>sessions</code>.</li>
+<li>Сделать функцию-зависимость <code>check_admin</code>, которая читает заголовок <code>Authorization</code> и проверяет, что токен есть в списке.</li>
+<li>Подключить эту зависимость ко всем <code>/admin/*</code> эндпоинтам.</li>
+</ol>
+<p><strong>Пример простой реализации:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">secrets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">Header</span><span class="p">,</span> <span class="n">HTTPException</span>
+
+<span class="c1"># Простое хранилище токенов в памяти</span>
+<span class="n">active_tokens</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/admin/login&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;SELECT password FROM admins WHERE login = ?&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">username</span><span class="p">,),</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">hash_password</span><span class="p">(</span><span class="n">password</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">401</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;неверный логин или пароль&quot;</span><span class="p">)</span>
+
+    <span class="n">token</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_hex</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">active_tokens</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">check_admin</span><span class="p">(</span><span class="n">authorization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Header</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+    <span class="c1"># Заголовок приходит в виде &quot;Bearer &lt;token&gt;&quot;</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">authorization</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;Bearer&quot;</span> <span class="ow">or</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">active_tokens</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">401</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;нужна авторизация&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/admin/items/getall&quot;</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="p">[</span><span class="n">Depends</span><span class="p">(</span><span class="n">check_admin</span><span class="p">)])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">allitems</span><span class="p">():</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<p>Теперь, чтобы зайти на <code>/admin/items/getall</code>, фронт должен сначала вызвать <code>/admin/login</code>, получить токен и слать его в заголовке <code>Authorization: Bearer &lt;token&gt;</code>.</p>
+<p><strong>На защите:</strong> «У меня админ сначала логинится через <code>/admin/login</code>, получает токен, и без этого токена нельзя зайти на админские эндпоинты.»</p>
+<hr />
+<h3 id="15">1.5. Пароль админа в открытом виде</h3>
+<p><strong>Что не так.</strong> В <code>db.py</code> закомментирована строка:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># cursor.execute(&quot;INSERT INTO admins (logan, password) VALUES(?, ?)&quot;, (&quot;admin&quot;, &quot;123&quot;))</span>
+</code></pre></div>
+
+<p>Пароль <code>123</code> слабый и хранится в БД как есть. Если кто-то получит доступ к файлу <code>maindb.db</code> — пароль виден сразу.</p>
+<p><strong>Почему это важно.</strong> Хранить пароли в открытом виде — это нарушение базовых правил безопасности. На защите часто спрашивают: «А как у вас хранятся пароли?».</p>
+<p><strong>Что делать.</strong> Хешировать пароль перед сохранением. Хеш — это «отпечаток» пароля: из пароля можно получить хеш, а из хеша пароль восстановить нельзя. Когда пользователь логинится — мы хешируем введённый им пароль и сравниваем хеши.</p>
+<p>Для школьного проекта достаточно <code>hashlib.sha256</code> из стандартной библиотеки:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">hash_password</span><span class="p">(</span><span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+<span class="c1"># При создании админа:</span>
+<span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="s2">&quot;INSERT INTO admins (login, password) VALUES (?, ?)&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="n">hash_password</span><span class="p">(</span><span class="s2">&quot;123&quot;</span><span class="p">)),</span>
+<span class="p">)</span>
+
+<span class="c1"># При логине:</span>
+<span class="n">row</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT password FROM admins WHERE login = ?&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">username</span><span class="p">,),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">row</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">hash_password</span><span class="p">(</span><span class="n">entered_password</span><span class="p">):</span>
+    <span class="c1"># пароль верный</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<p><strong>На защите:</strong> «Пароли хранятся в виде хешей SHA-256. Если файл БД утечёт, восстановить из хеша исходный пароль нельзя.»</p>
+<blockquote>
+<p><strong>Бонус.</strong> Если осталось время — посмотри библиотеку <code>bcrypt</code> (<code>pip install bcrypt</code>). Она надёжнее, потому что добавляет «соль» и работает медленно (это специально, чтобы перебор паролей был дольше). Но для школьного проекта <code>sha256</code> — нормальный вариант.</p>
+</blockquote>
+<hr />
+<h3 id="16-logan-login">1.6. Опечатка <code>logan</code> вместо <code>login</code></h3>
+<p><strong>Что не так.</strong> В <code>db.py</code> поле в таблице <code>admins</code> называется <code>logan</code>. Это явная опечатка от <code>login</code>.</p>
+<p><strong>Почему это важно.</strong> Любой проверяющий это заметит сразу. Мелочь, но создаёт впечатление неаккуратности.</p>
+<p><strong>Что делать.</strong> Переименовать в <code>login</code>. Так как БД ещё не используется реальными пользователями — можно просто удалить старую <code>maindb.db</code> и создать заново. Или написать миграцию:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;ALTER TABLE admins RENAME COLUMN logan TO login&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+<h2 id="2">Раздел 2. Логические недочёты</h2>
+<h3 id="21-if-not-sqlobject-is-none">2.1. <code>if not SQLobject is None</code> — антипаттерн стиля</h3>
+<p><strong>Что не так.</strong> В <code>get_item</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="ow">not</span> <span class="n">SQLobject</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+</code></pre></div>
+
+<p>В Python принято писать <code>is not None</code>, а не <code>not ... is None</code>. Технически это работает одинаково, но читается хуже.</p>
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">SQLobject</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+</code></pre></div>
+
+<p>PEP 8 (стандарт оформления Python-кода) явно говорит про это. Любой проверяющий, который смотрел PEP 8, обратит внимание.</p>
+<hr />
+<h3 id="22-if-iurl-not-in-reskeys-keys">2.2. <code>if i["url"] not in res.keys()</code> — лишний <code>.keys()</code></h3>
+<p><strong>Что не так.</strong> Ты пишешь:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+</code></pre></div>
+
+<p>В Python оператор <code>in</code> для словаря <strong>по умолчанию</strong> ищет среди ключей. Метод <code>.keys()</code> тут лишний.</p>
+<p><strong>Было:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+</code></pre></div>
+
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+</code></pre></div>
+
+<p>Работает идентично, но короче и быстрее (без создания объекта <code>dict_keys</code>).</p>
+<hr />
+<h3 id="23-or">2.3. Длинная цепочка <code>or</code> для проверки статуса</h3>
+<p><strong>Что не так.</strong> В <code>restatus</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;in applic&quot;</span> <span class="ow">or</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;accept&quot;</span> <span class="ow">or</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;not accept&quot;</span> <span class="ow">or</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;delete&quot;</span><span class="p">:</span>
+</code></pre></div>
+
+<p>Это длинно и плохо читается. Если завтра добавишь новый статус — придётся искать все такие места.</p>
+<p><strong>Что делать.</strong> Создать множество допустимых значений и проверять через <code>in</code>:</p>
+<p><strong>Было:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;in applic&quot;</span> <span class="ow">or</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;accept&quot;</span> <span class="ow">or</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;not accept&quot;</span> <span class="ow">or</span> <span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;delete&quot;</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ALLOWED_STATUSES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;in applic&quot;</span><span class="p">,</span> <span class="s2">&quot;accept&quot;</span><span class="p">,</span> <span class="s2">&quot;not accept&quot;</span><span class="p">,</span> <span class="s2">&quot;delete&quot;</span><span class="p">}</span>
+
+<span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="n">ALLOWED_STATUSES</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<p>Ещё лучше — <code>Enum</code> (см. пункт 3.3).</p>
+<hr />
+<h3 id="24-getapplic-python-sql">2.4. <code>getapplic</code> фильтрует в Python вместо SQL</h3>
+<p><strong>Что не так.</strong> В <code>getapplic</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT url, place, comment, status FROM items&quot;</span><span class="p">)</span>  <span class="c1"># вытаскиваем ВСЁ</span>
+<span class="n">SQLobject</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">SQLobject</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;in applic&quot;</span> <span class="ow">and</span> <span class="o">...</span><span class="p">:</span>                      <span class="c1"># фильтруем в Python</span>
+</code></pre></div>
+
+<p>Сравни с <code>getaccept</code>, где фильтр уже в SQL:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT ... FROM items WHERE status = &#39;accept&#39;&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Так и должно быть везде.</p>
+<p><strong>Почему это важно.</strong> При маленькой БД разницы нет, но если заявок станет 10 000 — мы тащим из БД всё 10 000 строк, чтобы оставить только 50 «в рассмотрении». БД умеет фильтровать сама — это её работа.</p>
+<p>На защите легко спросят: «Почему здесь фильтр в БД, а здесь в Python?». Лучше сделать одинаково.</p>
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/admin/items/getapplic&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">applic</span><span class="p">():</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;SELECT url, place, comment, status FROM items WHERE status = ?&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="s2">&quot;in applic&quot;</span><span class="p">,),</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h3 id="25-restatus">2.5. <code>restatus</code> не проверяет, что заявка существует</h3>
+<p><strong>Что не так.</strong> Если передать несуществующий <code>url</code>, <code>UPDATE</code> ничего не сделает, но клиент получит ответ «статус изменён».</p>
+<div class="codehilite"><pre><span></span><code><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE items SET status = ? WHERE url = ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">url</span><span class="p">))</span>
+<span class="c1"># даже если ничего не обновилось, мы возвращаем &quot;статус изменён&quot;</span>
+<span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;статус изменён на </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Что делать.</strong> Проверить <code>cursor.rowcount</code> — это количество строк, которые <code>UPDATE</code> затронул.</p>
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE items SET status = ? WHERE url = ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">url</span><span class="p">))</span>
+<span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">cursor</span><span class="o">.</span><span class="n">rowcount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;заявка не найдена&quot;</span><span class="p">)</span>
+
+<span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;статус изменён на </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="26-http-">2.6. Отсутствие правильных HTTP-кодов</h3>
+<p><strong>Что не так.</strong> Когда заявки нет, эндпоинт возвращает:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;нет такой заявки&quot;</span><span class="p">}</span>
+</code></pre></div>
+
+<p>Но HTTP-код при этом — <strong>200 OK</strong>. То есть с точки зрения протокола всё хорошо, и фронт обязан смотреть в тело ответа, чтобы понять, что что-то не так.</p>
+<p><strong>Почему это важно.</strong> Существует общепринятый стандарт: <strong>404 Not Found</strong> означает «не найдено», <strong>400 Bad Request</strong> — «неверные данные», <strong>401 Unauthorized</strong> — «нужна авторизация», <strong>500 Internal Server Error</strong> — «что-то сломалось на сервере». Возвращать «нет такой заявки» с кодом 200 — то же самое, что говорить «всё хорошо, но плохо».</p>
+<p><strong>Что делать.</strong> Использовать <code>HTTPException</code> из FastAPI:</p>
+<p><strong>Было:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/users/items/getitem/</span><span class="si">{url}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_item</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">SQLobject</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;нет такой заявки&quot;</span><span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPException</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/users/items/getitem/</span><span class="si">{url}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_item</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;SELECT url, place, comment, status FROM items WHERE url = ?&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">url</span><span class="p">,),</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;заявка не найдена&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</code></pre></div>
+
+<p>То же самое — для <code>restatus</code> при невалидном статусе (использовать код 400 вместо 200).</p>
+<hr />
+<h3 id="27-url">2.7. Ответ в виде словаря с <code>url</code> как ключом</h3>
+<p><strong>Что не так.</strong> Везде в <code>getall</code>, <code>getapplic</code>, <code>getaccept</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;place&quot;</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]]</span>
+</code></pre></div>
+
+<p>То есть ответ выглядит так:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;https://example.com/img1.jpg&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;it_cube&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;забытый рюкзак&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;in applic&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;https://example.com/img2.jpg&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;coridor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ключи&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;accept&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Здесь два недостатка:</p>
+<ol>
+<li>Если в БД две записи с одинаковым <code>url</code> — вторая молча затрёт первую в ответе.</li>
+<li>Список <code>[place, comment, status]</code> без имён полей — фронт обязан помнить порядок. Завтра добавишь поле <code>created_at</code> — фронт начнёт показывать его вместо <code>status</code>, и никто это не заметит.</li>
+</ol>
+<p><strong>Что делать.</strong> Возвращать <strong>массив объектов</strong> с именованными полями.</p>
+<p><strong>Было:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">res</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">SQLobject</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;place&quot;</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]]</span>
+<span class="k">return</span> <span class="n">res</span>
+</code></pre></div>
+
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">return</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;place&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;place&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;comment&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>Ответ станет таким:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;place&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;it_cube&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;забытый рюкзак&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;in applic&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;place&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;coridor&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ключи&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accept&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>С таким форматом фронту работать гораздо удобнее — это стандартный JSON-массив.</p>
+<hr />
+<h2 id="3">Раздел 3. Архитектурные улучшения (это плюсы для защиты)</h2>
+<h3 id="31-pydantic-">3.1. Pydantic-модели для входа и выхода</h3>
+<p><strong>Что не так.</strong> Сейчас параметры передаются как простые типы:</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/users/items/create&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_items</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">place</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">comment</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</code></pre></div>
+
+<p>FastAPI считает их <strong>query-параметрами</strong>, то есть они идут в URL: <code>POST /users/items/create?url=...&amp;place=...&amp;comment=...</code>. Для длинного <code>comment</code> с пробелами и спецсимволами это неудобно.</p>
+<p><strong>Что делать.</strong> Использовать <strong>Pydantic-модели</strong> — это рекомендованный способ во FastAPI.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">place</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">comment</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemOut</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">place</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">comment</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">status</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/users/items/create&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">ItemOut</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_items</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">ItemCreate</span><span class="p">):</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;INSERT INTO items (url, place, comment, status) VALUES (?, ?, ?, ?)&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">place</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">comment</span><span class="p">,</span> <span class="s2">&quot;in applic&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">ItemOut</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+        <span class="n">place</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">place</span><span class="p">,</span>
+        <span class="n">comment</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">comment</span><span class="p">,</span>
+        <span class="n">status</span><span class="o">=</span><span class="s2">&quot;in applic&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<p>Теперь:
+- данные передаются в <strong>теле</strong> запроса (JSON), а не в URL;
+- FastAPI автоматически проверяет, что все поля присутствуют и правильного типа;
+- в <code>/docs</code> появляется красивая автодокументация;
+- ответ тоже становится строго описанным.</p>
+<p><strong>На защите:</strong> «Использую Pydantic-модели — встроенный механизм валидации FastAPI. Если клиент пришлёт неправильные данные, он получит ошибку 422 с описанием, что не так.»</p>
+<hr />
+<h3 id="32-pydantic">3.2. Валидация полей через Pydantic</h3>
+<p>Если уже используешь Pydantic — можно сразу добавить ограничения:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">HttpUrl</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">url</span><span class="p">:</span> <span class="n">HttpUrl</span>                              <span class="c1"># должно быть валидным URL</span>
+    <span class="n">place</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">comment</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Если кто-то отправит пустое <code>place</code> — FastAPI вернёт ошибку 422 ещё до того, как код дойдёт до БД.</p>
+<hr />
+<h3 id="33-enum">3.3. <code>Enum</code> для статусов</h3>
+<p><strong>Что не так.</strong> Магические строки <code>"in applic"</code>, <code>"accept"</code>, <code>"not accept"</code>, <code>"delete"</code> рассыпаны по коду. Если опечатаешься в одном месте — баг, который никто не поймает.</p>
+<p><strong>Что делать.</strong> Завести <code>Enum</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemStatus</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">PENDING</span> <span class="o">=</span> <span class="s2">&quot;in applic&quot;</span>
+    <span class="n">ACCEPTED</span> <span class="o">=</span> <span class="s2">&quot;accept&quot;</span>
+    <span class="n">REJECTED</span> <span class="o">=</span> <span class="s2">&quot;not accept&quot;</span>
+    <span class="n">DELETED</span> <span class="o">=</span> <span class="s2">&quot;delete&quot;</span>
+</code></pre></div>
+
+<p>И тогда:</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s2">&quot;/admin/items/restatus&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">restatus</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="n">ItemStatus</span><span class="p">):</span>
+    <span class="c1"># FastAPI сам отвалидирует, что status — один из четырёх допустимых</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;UPDATE items SET status = ? WHERE url = ?&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">url</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">cursor</span><span class="o">.</span><span class="n">rowcount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="s2">&quot;заявка не найдена&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;статус изменён на </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+</code></pre></div>
+
+<p>При создании заявки:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="s2">&quot;INSERT INTO items (url, place, comment, status) VALUES (?, ?, ?, ?)&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">place</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">comment</span><span class="p">,</span> <span class="n">ItemStatus</span><span class="o">.</span><span class="n">PENDING</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>Теперь магических строк нет, и опечатка приведёт к ошибке Python ещё до запуска.</p>
+<blockquote>
+<p><strong>Совет.</strong> Назвать <code>"in applic"</code> лучше как <code>"pending"</code> (в рассмотрении). Запись <code>"in applic"</code> выглядит как обрезанное <code>"in application"</code> — непонятно. Но если БД уже работает с этим значением, оставь как есть, чтобы не ломать данные.</p>
+</blockquote>
+<hr />
+<h3 id="34-with">3.4. Использовать <code>with</code> для соединения с БД</h3>
+<p><strong>Что не так.</strong> В каждой функции одно и то же:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="o">...</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Это можно сократить, потому что <code>sqlite3.Connection</code> поддерживает контекстный менеджер.</p>
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">with</span> <span class="n">get_db_connection</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;SELECT url, place, comment, status FROM items&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+<span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+</code></pre></div>
+
+<p><code>with</code> сам сделает <code>commit</code> (если не было ошибки) или <code>rollback</code> (если была), и закроет соединение.</p>
+<blockquote>
+<p><strong>Важно.</strong> Контекстный менеджер <code>sqlite3.Connection</code> коммитит изменения, но <strong>не закрывает соединение</strong> автоматически — для этого нужен либо <code>con.close()</code> после <code>with</code>, либо обернуть в <code>contextlib.closing</code>. Для школьного проекта проще оставить явный <code>try / finally / close()</code>.</p>
+</blockquote>
+<hr />
+<h3 id="35">3.5. Объединить похожие эндпоинты</h3>
+<p><strong>Что не так.</strong> <code>getall</code>, <code>getapplic</code>, <code>getaccept</code> — это одна и та же функция с разным фильтром по статусу.</p>
+<p><strong>Что делать.</strong> Можно сделать один эндпоинт с опциональным параметром:</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/admin/items&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span><span class="n">status</span><span class="p">:</span> <span class="n">ItemStatus</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT url, place, comment, status FROM items&quot;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT url, place, comment, status FROM items WHERE status = ?&quot;</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">value</span><span class="p">,),</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Теперь один эндпоинт работает за всех:
+- <code>GET /admin/items</code> — все;
+- <code>GET /admin/items?status=in%20applic</code> — на рассмотрении;
+- <code>GET /admin/items?status=accept</code> — одобренные.</p>
+<p><strong>Это не обязательно</strong>, но если хочется добавить «глубину» проекту — это хороший повод поговорить на защите про принцип DRY (Don't Repeat Yourself — не повторяйся).</p>
+<hr />
+<h3 id="36-dbpy-sql">3.6. <code>db.py</code> исполняет SQL прямо при импорте</h3>
+<p><strong>Что не так.</strong> В <code>db.py</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_NAME</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;CREATE TABLE IF NOT EXISTS admins (...)&quot;</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Эти строки выполняются <strong>в момент импорта</strong> файла. Это значит, что любой <code>from db import ...</code> лезет в файловую систему. Плюс глобальные <code>conn</code> и <code>cursor</code> после <code>close()</code> остаются «битыми».</p>
+<p><strong>Что делать.</strong> Завернуть инициализацию в функцию:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+
+<span class="n">DB_NAME</span> <span class="o">=</span> <span class="s2">&quot;maindb.db&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_db_connection</span><span class="p">():</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_NAME</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">row_factory</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Row</span>
+    <span class="k">return</span> <span class="n">conn</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">init_db</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_NAME</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS admins (</span>
+<span class="s2">            id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s2">            login TEXT UNIQUE,</span>
+<span class="s2">            password TEXT</span>
+<span class="s2">        )&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS items (</span>
+<span class="s2">            id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s2">            url TEXT UNIQUE,</span>
+<span class="s2">            place TEXT,</span>
+<span class="s2">            comment TEXT,</span>
+<span class="s2">            status TEXT</span>
+<span class="s2">        )&quot;&quot;&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">init_db</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;База инициализирована&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>И в <code>main.py</code> один раз вызвать <code>init_db()</code> при запуске.</p>
+<p>Заодно я добавил <code>UNIQUE</code> к <code>login</code> и <code>url</code> — это даст БД самой следить, чтобы не было дубликатов.</p>
+<hr />
+<h3 id="37-from-progadb-import">3.7. Проверить импорт <code>from proga.db import ...</code></h3>
+<p><strong>Что не так.</strong> В <code>main.py</code> написано:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">proga.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_db_connection</span>
+</code></pre></div>
+
+<p>Но в репозитории нет папки <code>proga/</code>. Скорее всего, локально у тебя структура такая:</p>
+<div class="codehilite"><pre><span></span><code>proga/
+├── main.py
+└── db.py
+</code></pre></div>
+
+<p>а в репозитории файлы лежат уже без папки. Если проверяющий скачает код и попробует запустить — получит <code>ModuleNotFoundError</code>.</p>
+<p><strong>Что делать.</strong> Привести в порядок: либо добавить папку <code>proga/</code> с пустым <code>__init__.py</code> (чтобы это был «настоящий» Python-пакет), либо изменить импорт на:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">db</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_db_connection</span>
+</code></pre></div>
+
+<p>Проверь так: открой терминал в корне проекта и запусти:</p>
+<div class="codehilite"><pre><span></span><code>python main.py
+</code></pre></div>
+
+<p>Если запускается без ошибок — значит импорт правильный.</p>
+<hr />
+<h2 id="4">Раздел 4. Косметика (мелочи, но добавят балл)</h2>
+<h3 id="41">4.1. Имена переменных</h3>
+<p>В Python принято использовать <code>snake_case</code> (слова через нижнее подчёркивание). У тебя:</p>
+<table>
+<thead>
+<tr>
+<th>Сейчас</th>
+<th>Лучше</th>
+<th>Почему</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SQLobject</code></td>
+<td><code>rows</code></td>
+<td>snake_case + понятнее</td>
+</tr>
+<tr>
+<td><code>con</code></td>
+<td><code>conn</code></td>
+<td>стандартное сокращение</td>
+</tr>
+<tr>
+<td><code>applic</code></td>
+<td><code>pending_items</code></td>
+<td>понятнее, что возвращает</td>
+</tr>
+<tr>
+<td><code>restatus</code></td>
+<td><code>update_status</code></td>
+<td>глагол + объект</td>
+</tr>
+<tr>
+<td><code>allitems</code></td>
+<td><code>list_items</code></td>
+<td>стандартное название «листинга»</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-api">4.2. Описание API</h3>
+<p>Сейчас в <code>main.py</code> описание API в виде комментария-строки:</p>
+<div class="codehilite"><pre><span></span><code><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">/admin/items/getall - возвращает все данные о предметах</span>
+<span class="sd">...</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</code></pre></div>
+
+<p>Лучше передать описание в FastAPI — тогда оно появится в <code>/docs</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Сервис потерянных вещей ИТ-Куб&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;API для подачи и обработки заявок о найденных вещах&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>И к каждому эндпоинту можно добавить описание:</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s2">&quot;/users/items/create&quot;</span><span class="p">,</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Создать заявку&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Создаёт новую заявку со статусом «на рассмотрении»&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_items</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">ItemCreate</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<p>В автодокументации FastAPI (<code>http://127.0.0.1:8000/docs</code>) это всё красиво отобразится.</p>
+<h3 id="43-requirementstxt">4.3. <code>requirements.txt</code></h3>
+<p><strong>Обязательно</strong> добавь файл <code>requirements.txt</code> в корень проекта:</p>
+<div class="codehilite"><pre><span></span><code>fastapi
+uvicorn
+pydantic
+</code></pre></div>
+
+<p>Без него проверяющий не сможет установить зависимости одной командой <code>pip install -r requirements.txt</code>.</p>
+<p>Если используешь конкретные версии — лучше зафиксировать:</p>
+<div class="codehilite"><pre><span></span><code>fastapi==0.115.0
+uvicorn==0.32.0
+pydantic==2.9.0
+</code></pre></div>
+
+<p>Точные версии посмотри командой:</p>
+<div class="codehilite"><pre><span></span><code>pip show fastapi uvicorn pydantic
+</code></pre></div>
+
+<h3 id="44">4.4. Файл БД в репозитории</h3>
+<p>В репозитории лежит файл <code>maindb.db</code>. В реальных проектах файлы БД не хранят в git (там может быть личная информация пользователей, и при каждом запуске БД меняется).</p>
+<p>Создай файл <code>.gitignore</code> с содержимым:</p>
+<div class="codehilite"><pre><span></span><code>maindb.db
+__pycache__/
+*.pyc
+.venv/
+.idea/
+.vscode/
+</code></pre></div>
+
+<p>Для защиты можно отдельно положить «демо-базу» с тестовыми данными в файл <code>maindb.example.db</code> или дать SQL-скрипт для создания тестовых записей.</p>
+<h3 id="45-uvicorn">4.5. Параметры запуска uvicorn</h3>
+<p><strong>Было:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Стало:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Понятнее: видно, на каком хосте и порту запустится сервер.</p>
+<hr />
+<h2 id="5-">Раздел 5. Итоговый чек-лист</h2>
+<p>Распечатай и пройдись по пунктам перед защитой.</p>
+<h3 id="_3">Обязательно</h3>
+<ul>
+<li>[ ] Все f-string SQL заменены на параметризованные запросы (<code>?</code> + кортеж)</li>
+<li>[ ] <code>return</code> вынесен из <code>finally</code></li>
+<li>[ ] <code>commit()</code> убран после <code>SELECT</code></li>
+<li>[ ] Опечатка <code>logan</code> → <code>login</code></li>
+<li>[ ] <code>if not X is None</code> → <code>if X is not None</code></li>
+<li>[ ] <code>not in res.keys()</code> → <code>not in res</code></li>
+<li>[ ] <code>getapplic</code> фильтрует в SQL</li>
+<li>[ ] <code>restatus</code> проверяет <code>cursor.rowcount</code></li>
+<li>[ ] <code>get_item</code> возвращает 404 при отсутствии заявки</li>
+<li>[ ] <code>restatus</code> возвращает 400 при невалидном статусе</li>
+<li>[ ] Добавлен <code>requirements.txt</code></li>
+<li>[ ] Импорт <code>from proga.db</code> работает (или поправлен на <code>from db</code>)</li>
+<li>[ ] Файл <code>maindb.db</code> убран из git, добавлен <code>.gitignore</code></li>
+</ul>
+<h3 id="_4">Очень желательно (даст плюсы на защите)</h3>
+<ul>
+<li>[ ] Pydantic-модели <code>ItemCreate</code>, <code>ItemOut</code></li>
+<li>[ ] <code>Enum ItemStatus</code> для статусов</li>
+<li>[ ] Простая авторизация админа: <code>POST /admin/login</code> + токен в заголовке</li>
+<li>[ ] Хеширование пароля (<code>hashlib.sha256</code>)</li>
+<li>[ ] Объединение <code>getall</code> / <code>getapplic</code> / <code>getaccept</code> в один эндпоинт с фильтром</li>
+<li>[ ] Описание API через <code>FastAPI(title=..., description=...)</code></li>
+<li>[ ] <code>init_db()</code> вместо side-effect при импорте</li>
+<li>[ ] <code>UNIQUE</code> на <code>items.url</code> и <code>admins.login</code></li>
+</ul>
+<h3 id="_5">По желанию (если осталось время)</h3>
+<ul>
+<li>[ ] Использование <code>bcrypt</code> вместо <code>sha256</code></li>
+<li>[ ] Логирование (модуль <code>logging</code>)</li>
+<li>[ ] Простые тесты на <code>pytest</code> + <code>TestClient</code></li>
+<li>[ ] Пагинация (<code>limit</code>, <code>offset</code>)</li>
+</ul>
+<hr />
+<h2 id="6">Раздел 6. Готовые формулировки для защиты</h2>
+<table>
+<thead>
+<tr>
+<th>Вопрос комиссии</th>
+<th>Что отвечать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Защищён ли сервис от SQL-инъекций?</td>
+<td>«Да, я использую параметризованные запросы — данные подставляются через знак вопроса, а не в текст SQL.»</td>
+</tr>
+<tr>
+<td>Как у вас хранятся пароли?</td>
+<td>«В виде хешей SHA-256. По хешу пароль восстановить нельзя — это защищает от утечки БД.»</td>
+</tr>
+<tr>
+<td>Как защищена админка?</td>
+<td>«Админ логинится через <code>POST /admin/login</code>, получает токен, и без него <code>/admin/*</code> эндпоинты возвращают 401.»</td>
+</tr>
+<tr>
+<td>Что будет, если клиент пришлёт неправильные данные?</td>
+<td>«Pydantic автоматически проверит типы и обязательные поля, FastAPI вернёт ошибку 422 с описанием.»</td>
+</tr>
+<tr>
+<td>Зачем <code>Enum</code> для статусов?</td>
+<td>«Чтобы не было опечаток в магических строках — все допустимые значения в одном месте.»</td>
+</tr>
+<tr>
+<td>Что вернёт сервис, если заявки нет?</td>
+<td>«HTTP 404 с понятным описанием — клиент по коду сразу понимает, что ресурс не найден.»</td>
+</tr>
+<tr>
+<td>Зачем вообще FastAPI?</td>
+<td>«Это современный фреймворк для API на Python. Поддерживает асинхронность, автоматическую валидацию через Pydantic и сам генерирует документацию в <code>/docs</code>.»</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-mainpy">Раздел 7. Большой пример «как мог бы выглядеть весь <code>main.py</code>»</h2>
+<p>Это <strong>рекомендованный</strong> вариант — собрано всё, что обсуждалось выше. Можешь использовать как образец.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">secrets</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">uvicorn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">Header</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">db</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_db_connection</span><span class="p">,</span> <span class="n">init_db</span>
+
+
+<span class="c1"># ======= модели =======</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemStatus</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">PENDING</span> <span class="o">=</span> <span class="s2">&quot;in applic&quot;</span>
+    <span class="n">ACCEPTED</span> <span class="o">=</span> <span class="s2">&quot;accept&quot;</span>
+    <span class="n">REJECTED</span> <span class="o">=</span> <span class="s2">&quot;not accept&quot;</span>
+    <span class="n">DELETED</span> <span class="o">=</span> <span class="s2">&quot;delete&quot;</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">place</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">comment</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemOut</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">place</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">comment</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">ItemStatus</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">LoginRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="c1"># ======= вспомогательные функции =======</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">hash_password</span><span class="p">(</span><span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+
+<span class="n">active_tokens</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">check_admin</span><span class="p">(</span><span class="n">authorization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Header</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">authorization</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;Bearer&quot;</span> <span class="ow">or</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">active_tokens</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">401</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;нужна авторизация&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># ======= приложение =======</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Сервис потерянных вещей ИТ-Куб&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;API для подачи и обработки заявок о найденных вещах&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="s2">&quot;startup&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_startup</span><span class="p">():</span>
+    <span class="n">init_db</span><span class="p">()</span>
+
+
+<span class="c1"># ======= авторизация =======</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/admin/login&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="n">LoginRequest</span><span class="p">):</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;SELECT password FROM admins WHERE login = ?&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">username</span><span class="p">,),</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">hash_password</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">password</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">401</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;неверный логин или пароль&quot;</span><span class="p">)</span>
+
+    <span class="n">token</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_hex</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">active_tokens</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
+
+
+<span class="c1"># ======= админские эндпоинты =======</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s2">&quot;/admin/items&quot;</span><span class="p">,</span>
+    <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">ItemOut</span><span class="p">],</span>
+    <span class="n">dependencies</span><span class="o">=</span><span class="p">[</span><span class="n">Depends</span><span class="p">(</span><span class="n">check_admin</span><span class="p">)],</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Список заявок (опционально с фильтром по статусу)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span><span class="n">status</span><span class="p">:</span> <span class="n">ItemStatus</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT url, place, comment, status FROM items&quot;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;SELECT url, place, comment, status FROM items WHERE status = ?&quot;</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">value</span><span class="p">,),</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+    <span class="s2">&quot;/admin/items/restatus&quot;</span><span class="p">,</span>
+    <span class="n">dependencies</span><span class="o">=</span><span class="p">[</span><span class="n">Depends</span><span class="p">(</span><span class="n">check_admin</span><span class="p">)],</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Изменить статус заявки&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_status</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="n">ItemStatus</span><span class="p">):</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;UPDATE items SET status = ? WHERE url = ?&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">url</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">cursor</span><span class="o">.</span><span class="n">rowcount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;заявка не найдена&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;статус изменён на </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+
+
+<span class="c1"># ======= пользовательские эндпоинты =======</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s2">&quot;/users/items/create&quot;</span><span class="p">,</span>
+    <span class="n">response_model</span><span class="o">=</span><span class="n">ItemOut</span><span class="p">,</span>
+    <span class="n">status_code</span><span class="o">=</span><span class="mi">201</span><span class="p">,</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Создать заявку&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_item</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">ItemCreate</span><span class="p">):</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;INSERT INTO items (url, place, comment, status) VALUES (?, ?, ?, ?)&quot;</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">place</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">comment</span><span class="p">,</span> <span class="n">ItemStatus</span><span class="o">.</span><span class="n">PENDING</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">IntegrityError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">409</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;заявка с таким url уже существует&quot;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">ItemOut</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+        <span class="n">place</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">place</span><span class="p">,</span>
+        <span class="n">comment</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">comment</span><span class="p">,</span>
+        <span class="n">status</span><span class="o">=</span><span class="n">ItemStatus</span><span class="o">.</span><span class="n">PENDING</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s2">&quot;/users/items/getitem/{url:path}&quot;</span><span class="p">,</span>
+    <span class="n">response_model</span><span class="o">=</span><span class="n">ItemOut</span><span class="p">,</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Получить заявку по url&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_item</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;SELECT url, place, comment, status FROM items WHERE url = ?&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">url</span><span class="p">,),</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;заявка не найдена&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s2">&quot;/users/items/getaccept&quot;</span><span class="p">,</span>
+    <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">ItemOut</span><span class="p">],</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Список одобренных заявок&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_accepted</span><span class="p">():</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">get_db_connection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;SELECT url, place, comment, status FROM items WHERE status = ?&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">ItemStatus</span><span class="o">.</span><span class="n">ACCEPTED</span><span class="o">.</span><span class="n">value</span><span class="p">,),</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+
+
+<span class="c1"># ======= точка входа =======</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+</code></pre></div>
+
+<p>И обновлённый <code>db.py</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+
+<span class="n">DB_NAME</span> <span class="o">=</span> <span class="s2">&quot;maindb.db&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_db_connection</span><span class="p">():</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_NAME</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">row_factory</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Row</span>
+    <span class="k">return</span> <span class="n">conn</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">init_db</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_NAME</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS admins (</span>
+<span class="s2">            id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s2">            login TEXT UNIQUE,</span>
+<span class="s2">            password TEXT</span>
+<span class="s2">        )&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS items (</span>
+<span class="s2">            id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s2">            url TEXT UNIQUE,</span>
+<span class="s2">            place TEXT,</span>
+<span class="s2">            comment TEXT,</span>
+<span class="s2">            status TEXT</span>
+<span class="s2">        )&quot;&quot;&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">init_db</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;База инициализирована&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+<h2 id="_6">Что почитать</h2>
+<p>Если интересно, после защиты можно посмотреть глубже:</p>
+<ul>
+<li><strong>FastAPI tutorial</strong> — официальный, очень подробный: <a href="https://fastapi.tiangolo.com/tutorial/">https://fastapi.tiangolo.com/tutorial/</a></li>
+<li><strong>PEP 8</strong> — стандарт оформления Python-кода: <a href="https://peps.python.org/pep-0008/">https://peps.python.org/pep-0008/</a></li>
+<li><strong>OWASP Top 10</strong> — список самых частых веб-уязвимостей: <a href="https://owasp.org/www-project-top-ten/">https://owasp.org/www-project-top-ten/</a></li>
+<li><strong>bcrypt</strong> — нормальная библиотека для хеширования паролей.</li>
+<li><strong>SQLAlchemy</strong> — следующий шаг после ручных SQL-запросов.</li>
+</ul>
+<p>Удачной защиты!</p>
+
+</body>
+</html>

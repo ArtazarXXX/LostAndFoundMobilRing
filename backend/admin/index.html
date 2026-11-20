@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ИТ-Куб: бюро находок — админка</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="login-view" class="view">
+    <div class="login-card">
+        <h1>Бюро находок</h1>
+        <p class="muted">Вход для админов ИТ-Куба</p>
+        <form id="login-form">
+            <input type="text" id="login-login" placeholder="Логин" autocomplete="username" required>
+            <input type="password" id="login-password" placeholder="Пароль" autocomplete="current-password" required>
+            <button type="submit">Войти</button>
+            <div id="login-error" class="error"></div>
+        </form>
+        <p class="hint">Для разработки: <code>admin / admin</code></p>
+    </div>
+</div>
+
+<div id="app-view" class="view hidden">
+    <header>
+        <h1>Бюро находок</h1>
+        <div class="header-right">
+            <span id="who" class="muted"></span>
+            <button id="logout">Выйти</button>
+        </div>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab active" data-tab="items">Вещи</button>
+        <button class="tab" data-tab="add">Добавить вещь</button>
+        <button class="tab" data-tab="claims">Заявки на возврат</button>
+    </nav>
+
+    <section id="tab-items" class="tab-panel">
+        <div class="toolbar">
+            <label>Фильтр:</label>
+            <select id="items-filter">
+                <option value="all">Все</option>
+                <option value="in_applic" selected>На модерации</option>
+                <option value="accept">Одобренные</option>
+                <option value="not_accept">Отклонённые</option>
+                <option value="delete">Удалённые</option>
+            </select>
+            <button id="items-refresh">Обновить</button>
+        </div>
+        <div id="items-list" class="cards"></div>
+    </section>
+
+    <section id="tab-add" class="tab-panel hidden">
+        <form id="add-form" class="form-narrow">
+            <label>Фото
+                <input type="file" id="add-photo" accept="image/jpeg,image/png,image/webp" required>
+            </label>
+            <div class="photo-preview-wrap">
+                <img id="add-preview" alt="" hidden>
+            </div>
+            <label>Где нашли
+                <input type="text" id="add-place" placeholder="Кабинет 204" required>
+            </label>
+            <label>Описание
+                <textarea id="add-comment" placeholder="Чёрный рюкзак с наклейкой Python" required></textarea>
+            </label>
+            <button type="submit">Создать (на модерации)</button>
+            <div id="add-result" class="result"></div>
+        </form>
+    </section>
+
+    <section id="tab-claims" class="tab-panel hidden">
+        <div class="toolbar">
+            <button id="claims-refresh">Обновить</button>
+        </div>
+        <div id="claims-list" class="cards"></div>
+    </section>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

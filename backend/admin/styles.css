@@ -1,0 +1,183 @@
+:root {
+    --accent: #9FCFEC;
+    --accent-dark: #6FB2D8;
+    --bg: #FAFBFC;
+    --card: #FFFFFF;
+    --border: #E3E6EA;
+    --text: #1A1A1A;
+    --muted: #6B7280;
+    --danger: #DC2626;
+    --success: #059669;
+    --warning: #D97706;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+h1 { margin: 0; font-size: 22px; }
+
+.view { min-height: 100vh; }
+.hidden { display: none !important; }
+.muted { color: var(--muted); font-size: 13px; }
+.error { color: var(--danger); margin-top: 8px; font-size: 14px; min-height: 18px; }
+.result { margin-top: 10px; font-size: 14px; min-height: 18px; }
+.result.ok { color: var(--success); }
+.result.err { color: var(--danger); }
+
+.hint { color: var(--muted); font-size: 12px; margin-top: 12px; }
+code { background: #F1F3F5; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+#login-view {
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+}
+.login-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    width: 360px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+}
+.login-card h1 { font-size: 24px; }
+.login-card p { margin: 6px 0 20px; }
+
+form input, form textarea, form select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    background: white;
+    font-family: inherit;
+    margin-top: 4px;
+}
+form textarea { min-height: 90px; resize: vertical; }
+form label { display: block; margin-bottom: 12px; font-size: 13px; color: var(--muted); }
+
+button {
+    background: var(--accent);
+    border: none;
+    padding: 11px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #000;
+    transition: background 0.15s;
+}
+button:hover { background: var(--accent-dark); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+button.danger { background: #FEE2E2; color: var(--danger); }
+button.danger:hover { background: #FCA5A5; }
+button.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+button.ghost:hover { background: #F1F3F5; }
+
+#login-form button { width: 100%; margin-top: 8px; }
+
+header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+.tabs {
+    display: flex;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+}
+.tab {
+    background: transparent;
+    color: var(--muted);
+    border-radius: 0;
+    padding: 14px 18px;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+}
+.tab.active { color: var(--text); border-bottom-color: var(--accent-dark); }
+.tab:hover { background: transparent; color: var(--text); }
+
+.tab-panel { padding: 20px 24px; max-width: 1100px; margin: 0 auto; }
+
+.toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.toolbar label { font-size: 13px; color: var(--muted); }
+.toolbar select {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.card .photo {
+    width: 100%;
+    height: 180px;
+    background: var(--accent);
+    object-fit: cover;
+    display: block;
+}
+.card .body { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card .place { font-weight: 600; font-size: 14px; }
+.card .comment { color: var(--muted); font-size: 13px; min-height: 18px; }
+.card .meta {
+    display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap;
+    font-size: 12px;
+}
+.badge {
+    padding: 3px 8px; border-radius: 999px; font-weight: 600;
+    background: #F1F3F5; color: var(--muted);
+}
+.badge.in_applic { background: #FEF3C7; color: var(--warning); }
+.badge.accept { background: #D1FAE5; color: var(--success); }
+.badge.not_accept { background: #FEE2E2; color: var(--danger); }
+.badge.pending { background: #FEF3C7; color: var(--warning); }
+.badge.done { background: #D1FAE5; color: var(--success); }
+.badge.rejected { background: #FEE2E2; color: var(--danger); }
+.card .actions { padding: 10px 14px; border-top: 1px solid var(--border); display: flex; gap: 8px; flex-wrap: wrap; }
+.card .actions button { padding: 7px 12px; font-size: 13px; }
+
+.form-narrow { max-width: 480px; }
+.photo-preview-wrap { margin: -6px 0 14px; }
+.photo-preview-wrap img {
+    max-width: 100%; max-height: 240px;
+    border-radius: 10px; border: 1px solid var(--border);
+    display: block;
+}
+
+.empty {
+    color: var(--muted);
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 14px;
+}
+
+.claim-card .field { display: flex; gap: 8px; font-size: 13px; }
+.claim-card .field .k { color: var(--muted); width: 96px; }
+.claim-card .field .v { color: var(--text); flex: 1; }

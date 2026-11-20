@@ -1,0 +1,45 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Temporary presentation lock & unpack files
+~$*
+*.tmp
+unpacked_presentation/
+presentation.pptx
+*.bak.pptx
+
+# Python / Backend
+backend/.venv/
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+backend/uploads/*.tmp
+
+# Android / Gradle
+mobile/.gradle/
+mobile/build/
+mobile/app/build/
+mobile/local.properties
+mobile/.idea/
+mobile/*.iml
+mobile/app/*.iml
+.gradle/
+build/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
